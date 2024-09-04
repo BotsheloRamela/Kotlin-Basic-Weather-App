@@ -15,5 +15,6 @@ interface WeatherApi {
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
         @Query("appid") apiKey: String = API_KEY,
+        @Query("units") units: String = "metric"
     ): WeatherForecast
 }
