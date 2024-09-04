@@ -9,6 +9,7 @@ import retrofit2.http.Query
  * Interface for defining the OpenWeatherMap API endpoints.
  */
 interface WeatherApi {
+
     @GET("forecast")
     suspend fun getWeatherForecast(
         @Query("lat") latitude: Double,
