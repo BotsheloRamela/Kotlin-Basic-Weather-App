@@ -3,10 +3,17 @@ package com.botsheloramela.basicweatherapp.ui.views
 import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -19,9 +26,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.botsheloramela.basicweatherapp.R
 import com.botsheloramela.basicweatherapp.domain.model.CurrentWeather
 import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
 import com.botsheloramela.basicweatherapp.ui.components.MainWeatherCard
+import com.botsheloramela.basicweatherapp.ui.components.WeatherItemCard
 import com.botsheloramela.basicweatherapp.ui.theme.BasicWeatherAppTheme
 import com.botsheloramela.basicweatherapp.ui.viewmodel.HomeViewModel
 import com.botsheloramela.basicweatherapp.utils.Constants.SCREEN_PADDING
@@ -94,9 +103,41 @@ fun HomeScreenContent(currentWeather: CurrentWeather) {
         MainWeatherCard(
             currentTemp = currentWeather.main.temp.toInt(),
             feelsLikeTemp = currentWeather.main.feels_like.toInt(),
-            weatherType = currentWeather.weather[0].description,
+            weatherType = currentWeather.weather[0].main,
             location = currentWeather.name
         )
+        Spacer(modifier = Modifier.padding(12.dp))
+        val columns = 3
+        val spacing = 12.dp
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(columns),
+            horizontalArrangement = Arrangement.spacedBy(spacing)
+        ) {
+
+            items(3) { index ->
+                WeatherItemCard(
+                    icon = when(index) {
+                        0 -> R.drawable.wind
+                        1 -> R.drawable.pressure
+                        else -> R.drawable.humidity
+                    },
+                    title = when(index) {
+                        0 -> "Wind"
+                        1 -> "Pressure"
+                        else -> "Humidity"
+                    },
+                    value = "${currentWeather.wind.speed}".let {
+                        when(index) {
+                            0 -> "$it m/s"
+                            1 -> "${currentWeather.main.pressure} MB"
+                            else -> "${currentWeather.main.humidity}%"
+                        }
+                    }
+                )
+                Spacer(modifier = Modifier.width(spacing))
+            }
+        }
     }
 }
 

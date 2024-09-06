@@ -27,13 +27,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize the request permission launcher
-        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
             if (isGranted) {
                 setContent {
                     BasicWeatherAppTheme {
                         Surface(
                             modifier = Modifier.fillMaxSize(),
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.background
                         ) {
                             val homeViewModel: HomeViewModel = hiltViewModel()
                             HomeView(viewModel = homeViewModel)
@@ -50,6 +52,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun showPermissionDeniedMessage() {
-        Toast.makeText(this, "Location permission is required to access weather data.", Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            this,
+            "Location permission is required to access weather data.",
+            Toast.LENGTH_LONG
+        ).show()
     }
 }
