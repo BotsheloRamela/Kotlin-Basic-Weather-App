@@ -4,6 +4,9 @@ import com.botsheloramela.basicweatherapp.data.remote.WeatherApi
 import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
 import javax.inject.Inject
 
+/**
+ * Repository for weather data.
+ */
 class WeatherRepositoryImpl @Inject constructor(
     private val weatherApi: WeatherApi
 ): WeatherRepository {
