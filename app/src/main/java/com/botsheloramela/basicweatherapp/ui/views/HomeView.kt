@@ -5,11 +5,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -28,7 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.botsheloramela.basicweatherapp.R
 import com.botsheloramela.basicweatherapp.domain.model.CurrentWeather
-import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
+import com.botsheloramela.basicweatherapp.domain.model.WeatherItem
+import com.botsheloramela.basicweatherapp.ui.components.HourlyForecastCard
 import com.botsheloramela.basicweatherapp.ui.components.MainWeatherCard
 import com.botsheloramela.basicweatherapp.ui.components.WeatherItemCard
 import com.botsheloramela.basicweatherapp.ui.theme.BasicWeatherAppTheme
@@ -61,7 +59,7 @@ fun HomeView(
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
-        verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center,
+        verticalArrangement = Arrangement.Center,
     ) {
         if (location != null) {
             val errorMessage by remember { mutableStateOf<String?>(null) }
@@ -71,20 +69,21 @@ fun HomeView(
             }
 
             if (currentWeather != null) {
-                HomeScreenContent(currentWeather!!)
+                val hourlyForecast: List<WeatherItem>? = viewModel.getCurrentAndNextForecasts()
+                HomeScreenContent(currentWeather = currentWeather!!, hourlyForecast = hourlyForecast)
             } else if (errorMessage != null) {
                 Text(text = "Error: $errorMessage", color = MaterialTheme.colorScheme.error)
             } else {
                 CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
                 Spacer(modifier = Modifier.padding(8.dp))
-                Text(text = "Fetching weather data...")
+                Text(text = "Fetching weather data...", color = MaterialTheme.colorScheme.onPrimary)
             }
         } else if (location == null) {
             Text(text = "Error: Location not found", color = MaterialTheme.colorScheme.error)
         } else {
             CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
             Spacer(modifier = Modifier.padding(8.dp))
-            Text(text = "Fetching location...")
+            Text(text = "Fetching location...", color = MaterialTheme.colorScheme.onPrimary)
         }
     }
 
@@ -94,7 +93,29 @@ fun HomeView(
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeScreenContent(currentWeather: CurrentWeather) {
+fun HomeScreenContent(
+    currentWeather: CurrentWeather,
+    hourlyForecast: List<WeatherItem>?
+) {
+
+    var weatherIconIds: List<Int> = emptyList()
+    var hourlyTemps: List<Int> = emptyList()
+    var hourlyTimes: List<String> = emptyList()
+
+    if (hourlyForecast != null) {
+        hourlyTemps = hourlyForecast.map { it.main.temp.toInt() }
+        hourlyTimes = hourlyForecast.map { it.dt_txt }
+
+        for (i in hourlyForecast) {
+            var iconId = hourlyForecast.map { it.weather[0].id }
+            weatherIconIds = iconId
+        }
+    } else {
+        weatherIconIds = emptyList()
+        hourlyTemps = emptyList()
+        hourlyTimes = emptyList()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -107,36 +128,47 @@ fun HomeScreenContent(currentWeather: CurrentWeather) {
             location = currentWeather.name
         )
         Spacer(modifier = Modifier.padding(12.dp))
-        val columns = 3
-        val spacing = 12.dp
+        WeatherItems(currentWeather)
+        Spacer(modifier = Modifier.padding(12.dp))
+        HourlyForecastCard(
+            weatherIcons = weatherIconIds,
+            hourlyTemps = hourlyTemps,
+            hourlyTimes = hourlyTimes
+        )
+    }
+}
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(columns),
-            horizontalArrangement = Arrangement.spacedBy(spacing)
-        ) {
+@Composable
+fun WeatherItems(currentWeather: CurrentWeather) {
+    val columns = 3
+    val spacing = 12.dp
 
-            items(3) { index ->
-                WeatherItemCard(
-                    icon = when(index) {
-                        0 -> R.drawable.wind
-                        1 -> R.drawable.pressure
-                        else -> R.drawable.humidity
-                    },
-                    title = when(index) {
-                        0 -> "Wind"
-                        1 -> "Pressure"
-                        else -> "Humidity"
-                    },
-                    value = "${currentWeather.wind.speed}".let {
-                        when(index) {
-                            0 -> "$it m/s"
-                            1 -> "${currentWeather.main.pressure} MB"
-                            else -> "${currentWeather.main.humidity}%"
-                        }
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(columns),
+        horizontalArrangement = Arrangement.spacedBy(spacing)
+    ) {
+
+        items(3) { index ->
+            WeatherItemCard(
+                icon = when(index) {
+                    0 -> R.drawable.wind
+                    1 -> R.drawable.pressure
+                    else -> R.drawable.humidity
+                },
+                title = when(index) {
+                    0 -> "Wind"
+                    1 -> "Pressure"
+                    else -> "Humidity"
+                },
+                value = "${currentWeather.wind.speed}".let {
+                    when(index) {
+                        0 -> "$it m/s"
+                        1 -> "${currentWeather.main.pressure} MB"
+                        else -> "${currentWeather.main.humidity}%"
                     }
-                )
-                Spacer(modifier = Modifier.width(spacing))
-            }
+                }
+            )
+            Spacer(modifier = Modifier.width(spacing))
         }
     }
 }

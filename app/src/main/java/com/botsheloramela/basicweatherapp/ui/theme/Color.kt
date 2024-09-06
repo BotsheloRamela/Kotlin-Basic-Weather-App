@@ -2,7 +2,7 @@ package com.botsheloramela.basicweatherapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Primary = Color(0xFF232A36)
+val Primary = Color(0xFF222A36)
 val Secondary = Color.White
 val Tertiary = Color.White
 val Background = Color(0xFF1B1D1E)

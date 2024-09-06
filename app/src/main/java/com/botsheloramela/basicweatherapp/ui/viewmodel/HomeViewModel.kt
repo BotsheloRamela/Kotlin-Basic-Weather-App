@@ -1,16 +1,21 @@
 package com.botsheloramela.basicweatherapp.ui.viewmodel
 
 import android.location.Location
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.botsheloramela.basicweatherapp.domain.model.CurrentWeather
 import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
+import com.botsheloramela.basicweatherapp.domain.model.WeatherItem
 import com.botsheloramela.basicweatherapp.domain.usecase.GetCurrentWeatherUseCase
 import com.botsheloramela.basicweatherapp.domain.usecase.GetDeviceLocationUseCase
 import com.botsheloramela.basicweatherapp.domain.usecase.GetWeatherForecastUseCase
+import com.botsheloramela.basicweatherapp.utils.DateTimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.time.Instant
 import javax.inject.Inject
 
 @HiltViewModel
@@ -55,6 +60,23 @@ class HomeViewModel @Inject constructor(
                 )
                 currentWeatherState.value = currentWeather
             }
+        }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getCurrentAndNextForecasts(): List<WeatherItem>? {
+        val currentTime = Instant.now().epochSecond
+
+        // Filter the list to get the forecast closest to the current time and the next 4 forecasts
+        val sortedForecasts = weatherForecastState.value?.list?.sortedBy { DateTimeUtils.parseDtTxtToTimestamp(it.dt_txt) }
+
+        val index = sortedForecasts?.indexOfFirst { DateTimeUtils.parseDtTxtToTimestamp(it.dt_txt) > currentTime }
+
+        return if (index != -1) {
+            sortedForecasts?.subList(index!!, index + 5)
+        } else {
+            emptyList() // No future forecasts found
         }
     }
 }
