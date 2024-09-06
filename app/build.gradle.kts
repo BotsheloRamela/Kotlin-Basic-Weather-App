@@ -85,6 +85,8 @@ dependencies {
     implementation(libs.dagger.hilt)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation)
+
 
     // Retrofit for network operations
     implementation(libs.retrofit)
