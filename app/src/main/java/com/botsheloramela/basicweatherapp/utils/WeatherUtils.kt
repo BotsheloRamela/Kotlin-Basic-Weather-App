@@ -1,11 +1,12 @@
 package com.botsheloramela.basicweatherapp.utils
 
 import com.botsheloramela.basicweatherapp.R
+import com.botsheloramela.basicweatherapp.domain.enums.WeatherType
 
 /**
  * Object that maps the weather id to the corresponding icon
  */
-object  WeatherIconMapper {
+object WeatherUtils {
     /**
      * Function that maps the weather id to the corresponding icon
      * @param id the weather id
@@ -37,6 +38,36 @@ object  WeatherIconMapper {
             801 -> R.drawable.partial_cloudy_light
             in 802..804 -> R.drawable.mostly_cloudy_light
             else -> getClosestIcon(id)
+        }
+    }
+
+    fun getWeatherImage(id: Int): Int {
+        val weatherType = getWeatherType(id)
+
+        return when (weatherType) {
+            WeatherType.THUNDER -> R.drawable.thunder
+            WeatherType.RAIN -> R.drawable.rain
+            WeatherType.SNOW -> R.drawable.snow
+            WeatherType.ATMOSPHERE -> R.drawable.atmosphere
+            WeatherType.CLEAR -> R.drawable.clear
+            WeatherType.CLOUDS -> R.drawable.clouds
+        }
+    }
+
+    /**
+     * Function that maps the weather id to the corresponding weather type
+     * @param id the weather id
+     * @return the corresponding weather type
+     */
+    private fun getWeatherType(id: Int): WeatherType {
+        return when (id) {
+            in 200..202, in 210..221, in 230..232, 781 -> WeatherType.THUNDER
+            in 300..321, in 500..504, in 520..531 -> WeatherType.RAIN
+            511, in 600..602, in 611..622 -> WeatherType.SNOW
+            701, 711, 721, 731, in 751..761, in 762..771 -> WeatherType.ATMOSPHERE
+            800 -> WeatherType.CLEAR
+            in 801..804 -> WeatherType.CLOUDS
+            else -> WeatherType.CLEAR
         }
     }
 
