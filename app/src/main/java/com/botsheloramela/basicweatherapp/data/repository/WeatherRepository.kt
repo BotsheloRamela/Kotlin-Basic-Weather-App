@@ -7,17 +7,9 @@ import javax.inject.Inject
 /**
  * Repository for weather data.
  */
-class WeatherRepository @Inject constructor(
-    private val weatherApi: WeatherApi
-) {
+interface WeatherRepository {
     /**
      * Get the weather forecast for a given latitude and longitude
      */
-    suspend fun getWeatherForecast(latitude: Double, longitude: Double): WeatherForecast {
-        return try {
-            weatherApi.getWeatherForecast(latitude, longitude)
-        } catch (e: Exception) {
-            throw e // TODO: Handle error properly
-        }
-    }
+    suspend fun getWeatherForecast(latitude: Double, longitude: Double): WeatherForecast
 }
