@@ -1,5 +1,6 @@
 package com.botsheloramela.basicweatherapp.data.remote
 
+import com.botsheloramela.basicweatherapp.domain.model.CurrentWeather
 import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
 import com.botsheloramela.basicweatherapp.utils.Constants.API_KEY
 import retrofit2.http.GET
@@ -17,4 +18,12 @@ interface WeatherApi {
         @Query("appid") apiKey: String = API_KEY,
         @Query("units") units: String = "metric"
     ): WeatherForecast
+
+    @GET("weather")
+    suspend fun getCurrentWeather(
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
+        @Query("appid") apiKey: String = API_KEY,
+        @Query("units") units: String = "metric"
+    ): CurrentWeather
 }

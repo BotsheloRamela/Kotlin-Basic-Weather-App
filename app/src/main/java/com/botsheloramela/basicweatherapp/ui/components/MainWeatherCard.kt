@@ -26,12 +26,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.botsheloramela.basicweatherapp.utils.DateTimeUtils
 import com.botsheloramela.basicweatherapp.utils.WeatherUtils
+import java.util.Locale
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainWeatherCard(
     currentTemp: Int,
     feelsLikeTemp: Int,
+    weatherType: String,
     location: String,
 ) {
     val currentDate = DateTimeUtils.getCurrentDate()
@@ -91,6 +93,13 @@ fun MainWeatherCard(
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Normal
                         )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = weatherType.uppercase(Locale.getDefault()),
+                            color = MaterialTheme.colorScheme.secondary,
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.Normal
+                        )
                         Spacer(modifier = Modifier.weight(1.0f))
                         Text(
                             text = location,
@@ -115,6 +124,7 @@ fun MainWeatherCardPreview() {
     MainWeatherCard(
         currentTemp = 22,
         feelsLikeTemp = 20,
+        weatherType = "Clear sky",
         location = "Johannesburg"
     )
 }

@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.botsheloramela.basicweatherapp.domain.model.CurrentWeather
 import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
 import com.botsheloramela.basicweatherapp.ui.components.MainWeatherCard
 import com.botsheloramela.basicweatherapp.ui.theme.BasicWeatherAppTheme
@@ -36,6 +37,7 @@ fun HomeView(
 ) {
     val location by viewModel.locationState
     val weatherForecast by viewModel.weatherForecastState
+    val currentWeather by viewModel.currentWeatherState
     val permissionState = rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
 
     // Fetch weather when screen is displayed
@@ -56,10 +58,11 @@ fun HomeView(
             val errorMessage by remember { mutableStateOf<String?>(null) }
             LaunchedEffect(location) {
                 viewModel.getWeatherForecast()
+                viewModel.getCurrentWeather()
             }
 
-            if (weatherForecast != null) {
-                HomeScreenContent(weatherForecast!!)
+            if (currentWeather != null) {
+                HomeScreenContent(currentWeather!!)
             } else if (errorMessage != null) {
                 Text(text = "Error: $errorMessage", color = MaterialTheme.colorScheme.error)
             } else {
@@ -82,16 +85,17 @@ fun HomeView(
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeScreenContent(weatherForecast: WeatherForecast) {
+fun HomeScreenContent(currentWeather: CurrentWeather) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(SCREEN_PADDING)
     ) {
         MainWeatherCard(
-            currentTemp = weatherForecast.list[0].main.temp.toInt(),
-            feelsLikeTemp = weatherForecast.list[0].main.feels_like.toInt(),
-            location = weatherForecast.city.name
+            currentTemp = currentWeather.main.temp.toInt(),
+            feelsLikeTemp = currentWeather.main.feels_like.toInt(),
+            weatherType = currentWeather.weather[0].description,
+            location = currentWeather.name
         )
     }
 }
