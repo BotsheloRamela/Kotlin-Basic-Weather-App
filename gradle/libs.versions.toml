@@ -14,6 +14,8 @@ retrofit = "2.11.0"
 ksp = "2.0.20-1.0.24"
 playServicesLocation = "21.3.0"
 accompanist = "0.36.0"
+composeNavigation = "2.8.0"
+serialization = "1.6.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -42,10 +44,17 @@ retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson"
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 # Permissions
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
+# Navigation component for Compose
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
+# Kotlin Serialization for JSON parsing
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

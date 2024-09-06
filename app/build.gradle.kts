@@ -3,6 +3,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.compose.compiler)
@@ -88,11 +89,18 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation)
 
-
     // Retrofit for network operations
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
 
     // Accompanist permissions for handling permissions
     implementation(libs.accompanist.permissions)
+
+    // Navigation component for Compose
+    implementation(libs.navigation.compose)
+
+    // Kotlin Serialization for JSON parsing
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.kotlin.reflect)
 }

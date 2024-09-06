@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -13,10 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
+import com.botsheloramela.basicweatherapp.navigation.NavGraph
 import com.botsheloramela.basicweatherapp.ui.theme.BasicWeatherAppTheme
-import com.botsheloramela.basicweatherapp.ui.viewmodel.HomeViewModel
-import com.botsheloramela.basicweatherapp.ui.views.HomeView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,8 +35,8 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colorScheme.background
                         ) {
-                            val homeViewModel: HomeViewModel = hiltViewModel()
-                            HomeView(viewModel = homeViewModel)
+                            val navController = rememberNavController()
+                            NavGraph(navController = navController)
                         }
                     }
                 }
