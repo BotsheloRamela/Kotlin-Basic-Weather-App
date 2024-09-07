@@ -60,35 +60,21 @@ app over time. Each layer can evolve independently, minimizing the risk of intro
 </p>
 
 ## Technologies Used
+BasicWeatherApp utilizes Gradle's new version catalog feature for managing dependencies, streamlining the
+build process and ensuring consistency across projects. The key dependencies include:
 
-### 1. **Kotlin**
-- **Reason**: Kotlin is the modern language for Android development, offering concise syntax, null 
-safety, and full interoperability with Java.
-
-### 2. **Jetpack Compose**
-- **Reason**: Compose is the modern toolkit for building native UIs in Android. It simplifies UI 
-development by using a declarative approach, making the code more readable and maintainable.
-
-### 3. **Retrofit**
-- **Reason**: Retrofit is a type-safe HTTP client for Android and Java, allowing easy and efficient 
-API communication. It simplifies the process of interacting with the OpenWeatherMap API.
-
-### 4. **Dagger Hilt**
-- **Reason**: Dagger Hilt is used for dependency injection, reducing boilerplate code and simplifying 
-the management of dependencies across the app. This makes the app more modular, testable, and scalable.
-
-### 5. **Coroutines**
-- **Reason**: Coroutines provide a way to write asynchronous code sequentially, making it easier to 
-manage background tasks like network requests without blocking the main thread.
-
-### 6. **OpenWeatherMap API**
-- **Reason**: OpenWeatherMap provides reliable and comprehensive weather data that can be easily 
-integrated with Retrofit.
+* **Kotlin**: Core library for Kotlin development.
+* **Jetpack Compose**: Modern UI toolkit for building native Android apps.
+* **Hilt-android**: Dependency injection framework.
+* **Retrofit**: Networking library for API calls.
+* **Coroutines**: Library for managing asynchronous tasks.
+* **OpenWeatherMap API**: Provides weather data for the app.
+* **Compose Type-Safe Navigation**: Type-safe navigation for enhanced reliability and developer experience.
 
 ## Setup and Installation
 
 ### Prerequisites
-- Kotlin **2.0.10** or later
+- Kotlin **2.0.20** or later
 - OpenWeatherMap API key
 
 ### Installation Steps
@@ -102,10 +88,10 @@ integrated with Retrofit.
     - Select "Open an existing project" and navigate to the cloned repository.
 
 3. Add your OpenWeatherMap API key:
-    - Create a file named local.properties in the root directory of the project.
+    - Create a file named `local.properties` in the root directory of the project.
     - Add the following line:
         ```properties
-        WEATHER_API_KEY=your_api_key
+        API_KEY=your_api_key
         ```
 4. Build and run the project:
     - Sync the Gradle files.
