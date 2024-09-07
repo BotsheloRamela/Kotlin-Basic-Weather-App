@@ -1,4 +1,4 @@
-package com.botsheloramela.basicweatherapp.domain.enums
+package com.botsheloramela.basicweatherapp.data.enums
 
 /**
  * Enum class that represents the different types of weather conditions.

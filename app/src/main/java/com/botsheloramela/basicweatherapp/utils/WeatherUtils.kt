@@ -1,7 +1,7 @@
 package com.botsheloramela.basicweatherapp.utils
 
 import com.botsheloramela.basicweatherapp.R
-import com.botsheloramela.basicweatherapp.domain.enums.WeatherType
+import com.botsheloramela.basicweatherapp.data.enums.WeatherType
 
 /**
  * Object that maps the weather id to the corresponding icon

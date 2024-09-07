@@ -1,4 +1,4 @@
-package com.botsheloramela.basicweatherapp.domain.model
+package com.botsheloramela.basicweatherapp.data.model
 
 /**
  * Data class representing the main data of the weather, which includes the temperature, pressure, and humidity

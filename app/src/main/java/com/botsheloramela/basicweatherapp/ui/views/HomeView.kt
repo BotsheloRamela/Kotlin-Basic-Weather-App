@@ -26,8 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.botsheloramela.basicweatherapp.R
-import com.botsheloramela.basicweatherapp.domain.model.CurrentWeather
-import com.botsheloramela.basicweatherapp.domain.model.WeatherItem
+import com.botsheloramela.basicweatherapp.data.model.CurrentWeather
+import com.botsheloramela.basicweatherapp.data.model.WeatherItem
 import com.botsheloramela.basicweatherapp.ui.components.HourlyForecastCard
 import com.botsheloramela.basicweatherapp.ui.components.MainWeatherCard
 import com.botsheloramela.basicweatherapp.ui.components.WeatherItemCard

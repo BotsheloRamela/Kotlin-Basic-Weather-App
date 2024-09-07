@@ -6,9 +6,9 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.botsheloramela.basicweatherapp.domain.model.CurrentWeather
-import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
-import com.botsheloramela.basicweatherapp.domain.model.WeatherItem
+import com.botsheloramela.basicweatherapp.data.model.CurrentWeather
+import com.botsheloramela.basicweatherapp.data.model.WeatherForecast
+import com.botsheloramela.basicweatherapp.data.model.WeatherItem
 import com.botsheloramela.basicweatherapp.domain.usecase.GetCurrentWeatherUseCase
 import com.botsheloramela.basicweatherapp.domain.usecase.GetDeviceLocationUseCase
 import com.botsheloramela.basicweatherapp.domain.usecase.GetWeatherForecastUseCase

@@ -1,7 +1,7 @@
 package com.botsheloramela.basicweatherapp.domain.usecase
 
 import com.botsheloramela.basicweatherapp.data.repository.WeatherRepository
-import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
+import com.botsheloramela.basicweatherapp.data.model.WeatherForecast
 import javax.inject.Inject
 
 /**

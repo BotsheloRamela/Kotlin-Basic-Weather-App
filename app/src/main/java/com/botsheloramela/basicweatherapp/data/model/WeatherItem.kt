@@ -1,4 +1,4 @@
-package com.botsheloramela.basicweatherapp.domain.model
+package com.botsheloramela.basicweatherapp.data.model
 
 /**
  * Data class representing the weather item, which is a forecast for a specific date and time

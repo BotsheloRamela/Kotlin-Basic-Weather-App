@@ -1,4 +1,4 @@
-package com.botsheloramela.basicweatherapp.domain.model
+package com.botsheloramela.basicweatherapp.data.model
 
 data class CurrentWeather (
     val weather: List<WeatherCondition>,

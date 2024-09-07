@@ -1,4 +1,4 @@
-package com.botsheloramela.basicweatherapp.domain.model
+package com.botsheloramela.basicweatherapp.data.model
 
 /**
  * Data class representing the weather forecast for a city

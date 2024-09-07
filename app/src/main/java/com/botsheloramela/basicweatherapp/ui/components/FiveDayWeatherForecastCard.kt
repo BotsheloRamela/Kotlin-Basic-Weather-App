@@ -28,8 +28,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
-import com.botsheloramela.basicweatherapp.domain.model.WeatherItem
+import com.botsheloramela.basicweatherapp.data.model.WeatherForecast
+import com.botsheloramela.basicweatherapp.data.model.WeatherItem
 import com.botsheloramela.basicweatherapp.utils.DateTimeUtils
 import com.botsheloramela.basicweatherapp.utils.WeatherUtils
 

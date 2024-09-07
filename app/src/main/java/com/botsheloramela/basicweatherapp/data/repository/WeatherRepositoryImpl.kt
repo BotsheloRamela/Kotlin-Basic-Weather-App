@@ -1,8 +1,8 @@
 package com.botsheloramela.basicweatherapp.data.repository
 
 import com.botsheloramela.basicweatherapp.data.remote.WeatherApi
-import com.botsheloramela.basicweatherapp.domain.model.CurrentWeather
-import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
+import com.botsheloramela.basicweatherapp.data.model.CurrentWeather
+import com.botsheloramela.basicweatherapp.data.model.WeatherForecast
 import javax.inject.Inject
 
 /**
