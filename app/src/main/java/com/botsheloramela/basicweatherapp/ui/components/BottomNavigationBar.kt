@@ -58,8 +58,8 @@ fun BottomNavigationBar(
                     indicatorColor = Color.Transparent,
                     selectedIconColor = MaterialTheme.colorScheme.onPrimary,
                     selectedTextColor = MaterialTheme.colorScheme.onPrimary,
-                    unselectedIconColor = MaterialTheme.colorScheme.secondary,
-                    unselectedTextColor = MaterialTheme.colorScheme.secondary
+                    unselectedIconColor = MaterialTheme.colorScheme.tertiary,
+                    unselectedTextColor = MaterialTheme.colorScheme.tertiary
                 )
 
             )

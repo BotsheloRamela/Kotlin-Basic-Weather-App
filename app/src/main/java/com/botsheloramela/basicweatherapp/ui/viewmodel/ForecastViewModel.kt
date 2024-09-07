@@ -6,27 +6,21 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.botsheloramela.basicweatherapp.domain.model.CurrentWeather
 import com.botsheloramela.basicweatherapp.domain.model.WeatherForecast
 import com.botsheloramela.basicweatherapp.domain.model.WeatherItem
-import com.botsheloramela.basicweatherapp.domain.usecase.GetCurrentWeatherUseCase
 import com.botsheloramela.basicweatherapp.domain.usecase.GetDeviceLocationUseCase
 import com.botsheloramela.basicweatherapp.domain.usecase.GetWeatherForecastUseCase
-import com.botsheloramela.basicweatherapp.utils.DateTimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.time.Instant
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class ForecastViewModel @Inject constructor(
     private val getWeatherForecastUseCase: GetWeatherForecastUseCase,
     private val getDeviceLocationUseCase: GetDeviceLocationUseCase,
-    private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase
 ): ViewModel() {
     val locationState = mutableStateOf<Location?>(null)
-    private val weatherForecastState = mutableStateOf<WeatherForecast?>(null)
-    val currentWeatherState = mutableStateOf<CurrentWeather?>(null)
+    val weatherForecastState = mutableStateOf<WeatherForecast?>(null)
 
     /**
      * Fetch the device location.
@@ -41,6 +35,7 @@ class HomeViewModel @Inject constructor(
     /**
      * Fetch the weather forecast based on the current location.
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getWeatherForecast() {
         viewModelScope.launch {
             val location = locationState.value
@@ -49,41 +44,24 @@ class HomeViewModel @Inject constructor(
                     latitude = location.latitude,
                     longitude = location.longitude
                 )
-                weatherForecastState.value = weatherForecast
+
+                val filteredForecasts = filterForecasts(weatherForecast)
+
+                weatherForecastState.value = weatherForecast.copy(list = filteredForecasts)
             }
         }
     }
 
     /**
-     * Fetch the current weather based on the current location.
+     * Filter the weather forecast to only include the forecasts for 6 AM each day.
      */
-    fun getCurrentWeather() {
-        viewModelScope.launch {
-            val location = locationState.value
-            if (location != null) {
-                val currentWeather = getCurrentWeatherUseCase(
-                    latitude = location.latitude,
-                    longitude = location.longitude
-                )
-                currentWeatherState.value = currentWeather
-            }
-        }
-    }
-
-
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getCurrentAndNextForecasts(): List<WeatherItem>? {
-        val currentTime = Instant.now().epochSecond
-
-        // Filter the list to get the forecast closest to the current time and the next 4 forecasts
-        val sortedForecasts = weatherForecastState.value?.list?.sortedBy { DateTimeUtils.parseDtTxtToTimestamp(it.dt_txt) }
-
-        val index = sortedForecasts?.indexOfFirst { DateTimeUtils.parseDtTxtToTimestamp(it.dt_txt) > currentTime }
-
-        return if (index != -1) {
-            sortedForecasts?.subList(index!!, index + 5)
-        } else {
-            emptyList() // No future forecasts found
+    private fun filterForecasts(weatherForecast: WeatherForecast): List<WeatherItem> {
+        return weatherForecast.list.filter { item ->
+            // Extract the time part of the dt_txt field
+            val forecastTime = item.dt_txt.split(" ")[1] // Get the time part (HH:mm:ss)
+            forecastTime == "06:00:00"
         }
+
     }
 }

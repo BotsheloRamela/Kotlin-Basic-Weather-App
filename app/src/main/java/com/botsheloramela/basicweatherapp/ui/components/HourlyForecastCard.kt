@@ -91,7 +91,7 @@ fun HourlyForecastItem(
         Text(
             text = timeStamp.uppercase(Locale.ROOT),
             style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.tertiary
         )
         Image(
             painter = painterResource(id = icon),

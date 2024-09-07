@@ -37,7 +37,7 @@ fun MainWeatherCard(
     location: String,
 ) {
     val currentDate = DateTimeUtils.getCurrentDate()
-    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp / 1.2f
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,8 +54,7 @@ fun MainWeatherCard(
                 painter = painterResource(id = weatherImage),
                 contentDescription = null,
                 contentScale = androidx.compose.ui.layout.ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
+                modifier = Modifier.fillMaxSize()
             )
             Box (modifier = Modifier
                 .background(Color.Black.copy(alpha = 0.6f))

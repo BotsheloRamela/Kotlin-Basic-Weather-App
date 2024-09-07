@@ -16,7 +16,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.botsheloramela.basicweatherapp.R
 import com.botsheloramela.basicweatherapp.ui.components.BottomNavItem
 import com.botsheloramela.basicweatherapp.ui.components.BottomNavigationBar
+import com.botsheloramela.basicweatherapp.ui.viewmodel.ForecastViewModel
 import com.botsheloramela.basicweatherapp.ui.viewmodel.HomeViewModel
+import com.botsheloramela.basicweatherapp.ui.views.ForecastView
 import com.botsheloramela.basicweatherapp.ui.views.HomeView
 
 /**
@@ -34,7 +36,7 @@ fun NavGraph(
     val bottomNavItems = remember {
         listOf(
             BottomNavItem(Screen.Home, R.drawable.home, "Home"),
-//            BottomNavItem(Screen.Search, R.drawable.ic_search, "Forecasts"),
+            BottomNavItem(Screen.Forecast, R.drawable.compass, "Forecasts"),
         )
     }
 
@@ -65,6 +67,11 @@ fun NavGraph(
             composable<Screen.Home> {
                 val homeViewModel: HomeViewModel = hiltViewModel()
                 HomeView(viewModel = homeViewModel)
+            }
+
+            composable<Screen.Forecast> {
+                val forecastViewModel: ForecastViewModel = hiltViewModel()
+                ForecastView(viewModel = forecastViewModel)
             }
         }
     }

@@ -10,5 +10,4 @@ object Constants {
     const val API_KEY = BuildConfig.API_KEY
 
     val SCREEN_PADDING = 16.dp
-    val WEATHER_IMAGE_CARD_INNER_PADDING = 16.dp
 }

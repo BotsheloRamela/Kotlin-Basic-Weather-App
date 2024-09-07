@@ -42,4 +42,15 @@ object DateTimeUtils {
         val localDateTime = LocalDateTime.parse(dtTxt, formatter)
         return localDateTime.format(DateTimeFormatter.ofPattern("h a"))
     }
+
+    /**
+     * Parse the date time text to a readable text in the format 6 September etc
+     */
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun parseDtTxtToDayMonth(dtTxt: String): String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val localDateTime = LocalDateTime.parse(dtTxt, formatter)
+        return localDateTime.format(DateTimeFormatter.ofPattern("d MMMM"))
+    }
+
 }
