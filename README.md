@@ -44,14 +44,20 @@ app over time. Each layer can evolve independently, minimizing the risk of intro
 2. **Domain Layer**:
     - **Use Cases**: This layer contains the business logic of the app. Each Use Case encapsulates a 
    specific piece of functionality, such as fetching weather data. The Use Cases are orchestrated by the ViewModel.
-    - **Repository Interface**: This interface abstracts the data sources, allowing the ViewModel to 
-   be unaware of where the data comes from (network, local database, etc.).
 
 3. **Data Layer**:
     - **Repository Implementation**: The Repository implements the Repository Interface and is responsible 
    for fetching data from remote (via Retrofit) or local sources.
     - **Data Sources**: Includes the APIs, database, and other sources of data. In this app, Retrofit 
    is used for network calls to the OpenWeatherMap API.
+
+## App Screenshots
+<p>
+   <p>
+      <img src="screenshots/HomeScreen.png" width="185" height="400" alt="Home Screen"/>
+      <img src="screenshots/ForecastsScreen.png" width="185" height="400" alt="Forecasts Screen"/> 
+   </p>
+</p>
 
 ## Technologies Used
 
@@ -75,20 +81,14 @@ the management of dependencies across the app. This makes the app more modular, 
 - **Reason**: Coroutines provide a way to write asynchronous code sequentially, making it easier to 
 manage background tasks like network requests without blocking the main thread.
 
-### 6. **LiveData/State**
-- **Reason**: LiveData (or State in Compose) is used to observe data changes in the ViewModel and 
-update the UI reactively. It ensures that the UI remains in sync with the data while handling the 
-lifecycle of the components.
-
-### 7. **OpenWeatherMap API**
+### 6. **OpenWeatherMap API**
 - **Reason**: OpenWeatherMap provides reliable and comprehensive weather data that can be easily 
 integrated with Retrofit.
 
 ## Setup and Installation
 
 ### Prerequisites
-- Android Studio Bumblebee or later
-- Kotlin 1.6 or later
+- Kotlin **2.0.10** or later
 - OpenWeatherMap API key
 
 ### Installation Steps
