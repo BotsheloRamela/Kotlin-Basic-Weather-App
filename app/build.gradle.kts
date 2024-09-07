@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId = "com.botsheloramela.basicweatherapp"
-        minSdk = 24
+        minSdk = 27
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
