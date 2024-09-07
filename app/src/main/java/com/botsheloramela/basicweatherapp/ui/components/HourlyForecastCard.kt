@@ -95,7 +95,7 @@ fun HourlyForecastItem(
         )
         Image(
             painter = painterResource(id = icon),
-            contentDescription = null,
+            contentDescription = "Weather icon",
             modifier = Modifier.size(48.dp)
         )
         Spacer(modifier = Modifier.height(4.dp))

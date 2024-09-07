@@ -98,7 +98,7 @@ fun WeatherForecastItem(
 
         Image(
             painter = painterResource(id = weatherIcon),
-            contentDescription = null,
+            contentDescription = "Weather Icon",
             modifier = Modifier.size(44.dp)
         )
 

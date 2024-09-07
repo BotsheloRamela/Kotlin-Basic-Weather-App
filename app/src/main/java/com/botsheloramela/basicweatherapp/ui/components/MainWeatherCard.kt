@@ -52,7 +52,7 @@ fun MainWeatherCard(
             val weatherImage = WeatherUtils.getWeatherImage(800)
             Image(
                 painter = painterResource(id = weatherImage),
-                contentDescription = null,
+                contentDescription = "Weather Image",
                 contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )

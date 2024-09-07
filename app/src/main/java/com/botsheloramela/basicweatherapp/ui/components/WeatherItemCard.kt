@@ -52,7 +52,7 @@ fun WeatherItemCard(
             ) {
                 Icon(
                     painter = painterResource(id = icon),
-                    contentDescription = null,
+                    contentDescription = title,
                     modifier = Modifier.size(25.dp),
                     tint = Color.White
                 )

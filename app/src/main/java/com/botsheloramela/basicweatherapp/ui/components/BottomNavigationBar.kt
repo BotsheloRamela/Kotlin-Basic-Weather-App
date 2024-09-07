@@ -47,7 +47,7 @@ fun BottomNavigationBar(
                     Column(horizontalAlignment = CenterHorizontally) {
                         Icon(
                             painter = painterResource(id = item.icon),
-                            contentDescription = null,
+                            contentDescription = item.title,
                             modifier = Modifier.size(IconSize)
                         )
                         Spacer(modifier = Modifier.height(12.dp))
